@@ -17,7 +17,7 @@ with DAG(
     dag_id='ETL_DWH_Daily',
     default_args=default_args,
     description='Run ETL DWH Daily',
-    schedule_interval='*/5 * * * *',  # Setiap 5 menit
+    schedule_interval='0 2 * * *',  # Setiap jam 2 pagi 
     start_date=pendulum.datetime(2025, 10, 30, tz="Asia/Jakarta"),  # Ganti dengan timezone Jakarta
     catchup=False,
     tags=['etl', 'stg', 'python'],
