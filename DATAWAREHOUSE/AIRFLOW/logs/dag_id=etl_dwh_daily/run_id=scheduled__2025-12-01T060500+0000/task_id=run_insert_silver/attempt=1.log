@@ -1,0 +1,58 @@
+[2025-12-01T06:10:14.033+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-12-01T06:10:14.052+0000] {taskinstance.py:2612} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: ETL_DWH_Daily.run_insert_silver scheduled__2025-12-01T06:05:00+00:00 [queued]>
+[2025-12-01T06:10:14.060+0000] {taskinstance.py:2612} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: ETL_DWH_Daily.run_insert_silver scheduled__2025-12-01T06:05:00+00:00 [queued]>
+[2025-12-01T06:10:14.060+0000] {taskinstance.py:2865} INFO - Starting attempt 1 of 2
+[2025-12-01T06:10:14.073+0000] {taskinstance.py:2888} INFO - Executing <Task(BashOperator): run_insert_silver> on 2025-12-01 06:05:00+00:00
+[2025-12-01T06:10:14.083+0000] {logging_mixin.py:190} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70 DeprecationWarning: This process (pid=9989) is multi-threaded, use of fork() may lead to deadlocks in the child.
+[2025-12-01T06:10:14.085+0000] {standard_task_runner.py:72} INFO - Started process 9990 to run task
+[2025-12-01T06:10:14.083+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'ETL_DWH_Daily', 'run_insert_silver', 'scheduled__2025-12-01T06:05:00+00:00', '--job-id', '933', '--raw', '--subdir', 'DAGS_FOLDER/etl_insert_DWH_Daily_dag.py', '--cfg-path', '/tmp/tmpheynp1ru']
+[2025-12-01T06:10:14.085+0000] {standard_task_runner.py:105} INFO - Job 933: Subtask run_insert_silver
+[2025-12-01T06:10:14.138+0000] {task_command.py:467} INFO - Running <TaskInstance: ETL_DWH_Daily.run_insert_silver scheduled__2025-12-01T06:05:00+00:00 [running]> on host bdb661d75ef8
+[2025-12-01T06:10:14.228+0000] {taskinstance.py:3131} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='yohan' AIRFLOW_CTX_DAG_ID='ETL_DWH_Daily' AIRFLOW_CTX_TASK_ID='run_insert_silver' AIRFLOW_CTX_EXECUTION_DATE='2025-12-01T06:05:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-12-01T06:05:00+00:00'
+[2025-12-01T06:10:14.229+0000] {taskinstance.py:731} INFO - ::endgroup::
+[2025-12-01T06:10:14.245+0000] {subprocess.py:63} INFO - Tmp dir root location: /tmp
+[2025-12-01T06:10:14.247+0000] {subprocess.py:75} INFO - Running command: ['/usr/bin/bash', '-c', 'python /opt/***/scripts/CORE_Insert_DWH.py']
+[2025-12-01T06:10:14.262+0000] {subprocess.py:86} INFO - Output:
+[2025-12-01T06:10:15.713+0000] {subprocess.py:93} INFO - Start INCREMENTAL ETL - 2025-12-01 06:10:15.381239
+[2025-12-01T06:10:15.714+0000] {subprocess.py:93} INFO - 
+[2025-12-01T06:10:15.715+0000] {subprocess.py:93} INFO - ========== START INCREMENTAL LOADING ==========
+[2025-12-01T06:10:15.715+0000] {subprocess.py:93} INFO - 
+[2025-12-01T06:10:15.716+0000] {subprocess.py:93} INFO - 
+[2025-12-01T06:10:15.716+0000] {subprocess.py:93} INFO - [1] Loading DimCustomer (Incremental)...
+[2025-12-01T06:10:15.717+0000] {subprocess.py:93} INFO - ✓ No new customers.
+[2025-12-01T06:10:15.717+0000] {subprocess.py:93} INFO - 
+[2025-12-01T06:10:15.718+0000] {subprocess.py:93} INFO - [2] Loading DimBranch (Incremental)...
+[2025-12-01T06:10:15.718+0000] {subprocess.py:93} INFO - ✓ No new branches.
+[2025-12-01T06:10:15.718+0000] {subprocess.py:93} INFO - 
+[2025-12-01T06:10:15.719+0000] {subprocess.py:93} INFO - [3] Loading DimAccount (Incremental)...
+[2025-12-01T06:10:15.719+0000] {subprocess.py:93} INFO - ✓ No new accounts.
+[2025-12-01T06:10:15.720+0000] {subprocess.py:93} INFO - 
+[2025-12-01T06:10:15.720+0000] {subprocess.py:93} INFO - [4] Loading FactTransaction (Incremental)...
+[2025-12-01T06:10:15.721+0000] {subprocess.py:93} INFO - ✓ No new fact rows.
+[2025-12-01T06:10:15.721+0000] {subprocess.py:93} INFO - 
+[2025-12-01T06:10:15.721+0000] {subprocess.py:93} INFO - [1.1] Updating DimCustomer...
+[2025-12-01T06:10:15.722+0000] {subprocess.py:93} INFO -     Last update check: 2025-12-01 11:05:20
+[2025-12-01T06:10:15.722+0000] {subprocess.py:93} INFO - ✓ Updated 4 DimCustomer rows
+[2025-12-01T06:10:15.723+0000] {subprocess.py:93} INFO - 
+[2025-12-01T06:10:15.723+0000] {subprocess.py:93} INFO - [2.1] Updating DimBranch...
+[2025-12-01T06:10:15.724+0000] {subprocess.py:93} INFO -     Last update check: 2025-12-01 11:05:20
+[2025-12-01T06:10:15.724+0000] {subprocess.py:93} INFO - ✓ No branch updates needed
+[2025-12-01T06:10:15.725+0000] {subprocess.py:93} INFO - 
+[2025-12-01T06:10:15.725+0000] {subprocess.py:93} INFO - [3.1] Updating DimAccount...
+[2025-12-01T06:10:15.725+0000] {subprocess.py:93} INFO -     Last update check: 2025-12-01 11:05:20
+[2025-12-01T06:10:15.726+0000] {subprocess.py:93} INFO - ✓ No account updates needed
+[2025-12-01T06:10:15.726+0000] {subprocess.py:93} INFO - 
+[2025-12-01T06:10:15.727+0000] {subprocess.py:93} INFO - [4.1] Updating FactTransaction...
+[2025-12-01T06:10:15.727+0000] {subprocess.py:93} INFO -     Last update check: 2025-12-01 11:05:20
+[2025-12-01T06:10:15.728+0000] {subprocess.py:93} INFO - ✓ Updated 10 FactTransaction rows
+[2025-12-01T06:10:15.728+0000] {subprocess.py:93} INFO - 
+[2025-12-01T06:10:15.728+0000] {subprocess.py:93} INFO - ========== ETL SUMMARY ==========
+[2025-12-01T06:10:15.729+0000] {subprocess.py:93} INFO - Total Records Inserted: 0
+[2025-12-01T06:10:15.729+0000] {subprocess.py:93} INFO - Total Records Updated: 14
+[2025-12-01T06:10:15.730+0000] {subprocess.py:93} INFO - Finish - 2025-12-01 06:10:15.713580
+[2025-12-01T06:10:15.827+0000] {subprocess.py:97} INFO - Command exited with return code 0
+[2025-12-01T06:10:15.855+0000] {taskinstance.py:340} INFO - ::group::Post task execution logs
+[2025-12-01T06:10:15.856+0000] {taskinstance.py:352} INFO - Marking task as SUCCESS. dag_id=ETL_DWH_Daily, task_id=run_insert_silver, run_id=scheduled__2025-12-01T06:05:00+00:00, execution_date=20251201T060500, start_date=20251201T061014, end_date=20251201T061015
+[2025-12-01T06:10:15.905+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2025-12-01T06:10:15.933+0000] {taskinstance.py:3900} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2025-12-01T06:10:15.935+0000] {local_task_job_runner.py:245} INFO - ::endgroup::
