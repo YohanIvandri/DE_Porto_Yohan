@@ -1,81 +1,88 @@
 # 📦 Data Warehouse Final Task – Yohan
 
-Proyek ini merupakan final task untuk membangun end-to-end Data Warehouse yang meliputi:
-- Pengolahan data sumber (CSV/XLSX)
-- Proses ETL dengan Python
-- Pembuatan staging, warehouse, dan data mart dengan SQL
-- Workflow automation menggunakan Apache Airflow
-- Containerization menggunakan Docker agar deployment lebih konsisten dan portable
+This project is the final task to build an end-to-end Data Warehouse that includes:
+- Processing raw source data (CSV/XLSX)
+- ETL pipeline using Python
+- Creating staging, warehouse, and data mart layers using SQL
+- Workflow automation using Apache Airflow
+- Containerization using Docker for consistent and portable deployment
 
-Struktur repository dibuat modular agar mudah dipahami dan direplikasi.
+The repository structure is designed to be modular, easy to understand, and reusable.
+
+---
 
 ## 📁 Project Folder Overview
 
 - **AIRFLOW/**  
-  Berisi DAG dan script pendukung yang digunakan untuk mengatur workflow ETL di Apache Airflow.
+  Contains DAGs and supporting scripts used to orchestrate the ETL workflow in Apache Airflow.
 
 - **DATA SOURCE/**  
-  Menyimpan file sumber mentah yang digunakan sebagai input ETL.
+  Stores the raw source files used as ETL inputs.
 
 - **PYTHON SCRIPT/**  
-  Berisi script Python untuk proses Extract, Transform, dan Load menuju Data Warehouse.
+  Contains Python scripts for the Extract, Transform, and Load processes into the Data Warehouse.
 
 - **SQL/**  
-  Berisi SQL script untuk membuat tabel staging, warehouse, data mart, serta stored procedure.
+  Contains SQL scripts for creating staging tables, warehouse tables, data marts, and stored procedures.
+
+---
 
 ## 🐳 Docker Implementation
 
-Proyek ini menggunakan **Docker** agar lingkungan pengembangan dan eksekusi pipeline menjadi konsisten, serta mempermudah setup tanpa harus menginstal dependency secara manual.
+This project uses **Docker** to ensure a consistent development and execution environment, and to simplify setup without manually installing dependencies.
 
-### **Apa yang dicontainerize?**
+### **What is containerized?**
+
 1. **Apache Airflow**  
-   Airflow dijalankan dalam beberapa container:
-   - webserver
-   - scheduler
-   - postgres (metadata database)
-   - airflow-init
+   Airflow runs in multiple containers:
+   - webserver  
+   - scheduler  
+   - postgres (metadata database)  
+   - airflow-init  
 
 2. **Python ETL Environment**  
-   Semua script ETL berjalan di dalam container Airflow sehingga dependency Python terisolasi dari OS lokal.
+   All ETL scripts run inside the Airflow container, ensuring Python dependencies stay isolated from the local OS.
 
-### **File Docker yang Digunakan**
+### **Docker Files Used**
 - **docker-compose.yml**  
-  Mengatur service Airflow (scheduler, webserver, worker, postgres).
-  
-## 📊 Data Pipeline Flow 
+  Manages Airflow services (scheduler, webserver, worker, postgres).
 
-Sumber data pipeline berasal dari dua jenis data:
+---
+
+## 📊 Data Pipeline Flow
+
+The pipeline processes two types of source data:
 
 1. **Database `db.sample`**  
-   → Diasumsikan sebagai database transaksi utama.  
+   → Assumed to be the main transactional database.
 
-2. **File CSV dan Excel**  
-   → Sumber data pendukung yang turut diproses.
+2. **CSV and Excel Files**  
+   → Supporting data sources that are also processed.
 
-Flow ETL dibangun menggunakan Python dan dijalankan melalui Airflow.  
-Alur lengkapnya sebagai berikut:
+The ETL flow is built using Python and executed through Airflow.  
+Below is the full end-to-end process:
 
-1. **Extract (Python → Airflow)**  
-   - Mengambil data dari database `db.sample`.  
-   - Membaca file CSV dan Excel dari folder `DATA SOURCE/`.
+### 1. **Extract (Python → Airflow)**
+- Pulls data from the `db.sample` database.  
+- Reads CSV and Excel files from the `DATA SOURCE/` directory.
 
-2. **Load ke STAGING**  
-   - Data hasil extract dimuat ke tabel staging.  
-   - Tahap ini hanya menyimpan data mentah yang sudah dibersihkan.
+### 2. **Load into STAGING**
+- Extracted data is loaded into staging tables.  
+- This step stores cleaned raw data without any business logic.
 
-3. **Transform & Load ke CORE (Warehouse)**  
-   - Python script memproses staging → core.  
-   - Pada tahap ini, data dibentuk menjadi struktur dimension dan fact.
+### 3. **Transform & Load into CORE (Warehouse)**
+- Python scripts process data from staging → core.  
+- Data is structured into **dimension** and **fact** tables.
 
-4. **Load ke MART**  
-   - Data mart hanya berisi 2 tabel utama:
-     - `mart.CustomerMart`
-     - `mart.DailySummaryMart`
-   - Tabel mart bersifat final dan siap dipakai untuk laporan.
+### 4. **Load into MART**
+The mart layer contains two main tables:
+- `mart.CustomerMart`  
+- `mart.DailySummaryMart`
 
-5. **Stored Procedure (SP)**  
-   - SP hanya mengambil data dari mart.  
-   - Tidak melakukan join atau transformasi berat karena semua proses telah dilakukan sebelumnya.  
+These tables are final outputs used for reporting and analytics.
 
-  
+### 5. **Stored Procedure (SP)**
+- SP only retrieves data from the mart layer.  
+- No heavy joins or transformations are done here since everything is pre-processed upstream.
 
+---
