@@ -1,0 +1,163 @@
+[2025-12-01T03:54:33.966+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-12-01T03:54:33.998+0000] {taskinstance.py:2612} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: ETL_DWH_Daily.run_insert_silver manual__2025-12-01T03:49:17.964534+00:00 [queued]>
+[2025-12-01T03:54:34.015+0000] {taskinstance.py:2612} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: ETL_DWH_Daily.run_insert_silver manual__2025-12-01T03:49:17.964534+00:00 [queued]>
+[2025-12-01T03:54:34.016+0000] {taskinstance.py:2865} INFO - Starting attempt 2 of 2
+[2025-12-01T03:54:34.042+0000] {taskinstance.py:2888} INFO - Executing <Task(BashOperator): run_insert_silver> on 2025-12-01 03:49:17.964534+00:00
+[2025-12-01T03:54:34.060+0000] {logging_mixin.py:190} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70 DeprecationWarning: This process (pid=3012) is multi-threaded, use of fork() may lead to deadlocks in the child.
+[2025-12-01T03:54:34.059+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'ETL_DWH_Daily', 'run_insert_silver', 'manual__2025-12-01T03:49:17.964534+00:00', '--job-id', '740', '--raw', '--subdir', 'DAGS_FOLDER/etl_insert_DWH_Daily_dag.py', '--cfg-path', '/tmp/tmpbqnm4har']
+[2025-12-01T03:54:34.064+0000] {standard_task_runner.py:72} INFO - Started process 3013 to run task
+[2025-12-01T03:54:34.064+0000] {standard_task_runner.py:105} INFO - Job 740: Subtask run_insert_silver
+[2025-12-01T03:54:34.150+0000] {task_command.py:467} INFO - Running <TaskInstance: ETL_DWH_Daily.run_insert_silver manual__2025-12-01T03:49:17.964534+00:00 [running]> on host bdb661d75ef8
+[2025-12-01T03:54:34.348+0000] {taskinstance.py:3131} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='yohan' AIRFLOW_CTX_DAG_ID='ETL_DWH_Daily' AIRFLOW_CTX_TASK_ID='run_insert_silver' AIRFLOW_CTX_EXECUTION_DATE='2025-12-01T03:49:17.964534+00:00' AIRFLOW_CTX_TRY_NUMBER='2' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-12-01T03:49:17.964534+00:00'
+[2025-12-01T03:54:34.350+0000] {taskinstance.py:731} INFO - ::endgroup::
+[2025-12-01T03:54:34.376+0000] {subprocess.py:63} INFO - Tmp dir root location: /tmp
+[2025-12-01T03:54:34.379+0000] {subprocess.py:75} INFO - Running command: ['/usr/bin/bash', '-c', 'python /opt/***/scripts/CORE_Insert_DWH.py']
+[2025-12-01T03:54:34.404+0000] {subprocess.py:86} INFO - Output:
+[2025-12-01T03:54:36.604+0000] {subprocess.py:93} INFO - Start INCREMENTAL ETL - 2025-12-01 03:54:36.157813
+[2025-12-01T03:54:36.605+0000] {subprocess.py:93} INFO - 
+[2025-12-01T03:54:36.605+0000] {subprocess.py:93} INFO - ========== START INCREMENTAL LOADING ==========
+[2025-12-01T03:54:36.606+0000] {subprocess.py:93} INFO - 
+[2025-12-01T03:54:36.607+0000] {subprocess.py:93} INFO - 
+[2025-12-01T03:54:36.608+0000] {subprocess.py:93} INFO - [1] Loading DimCustomer (Incremental)...
+[2025-12-01T03:54:36.609+0000] {subprocess.py:93} INFO - ✓ No new customers.
+[2025-12-01T03:54:36.609+0000] {subprocess.py:93} INFO - 
+[2025-12-01T03:54:36.610+0000] {subprocess.py:93} INFO - [2] Loading DimBranch (Incremental)...
+[2025-12-01T03:54:36.611+0000] {subprocess.py:93} INFO - ✓ No new branches.
+[2025-12-01T03:54:36.612+0000] {subprocess.py:93} INFO - 
+[2025-12-01T03:54:36.612+0000] {subprocess.py:93} INFO - [3] Loading DimAccount (Incremental)...
+[2025-12-01T03:54:36.613+0000] {subprocess.py:93} INFO - ✓ No new accounts.
+[2025-12-01T03:54:36.614+0000] {subprocess.py:93} INFO - 
+[2025-12-01T03:54:36.615+0000] {subprocess.py:93} INFO - [4] Loading FactTransaction (Incremental)...
+[2025-12-01T03:54:36.616+0000] {subprocess.py:93} INFO - ✓ No new fact rows.
+[2025-12-01T03:54:36.616+0000] {subprocess.py:93} INFO - 
+[2025-12-01T03:54:36.617+0000] {subprocess.py:93} INFO - [1.1] Updating DimCustomer...
+[2025-12-01T03:54:36.618+0000] {subprocess.py:93} INFO -     Last update check: 2025-12-01 10:44:35
+[2025-12-01T03:54:36.618+0000] {subprocess.py:93} INFO - ✓ No customer updates needed
+[2025-12-01T03:54:36.619+0000] {subprocess.py:93} INFO - 
+[2025-12-01T03:54:36.620+0000] {subprocess.py:93} INFO - [2.1] Updating DimBranch...
+[2025-12-01T03:54:36.621+0000] {subprocess.py:93} INFO -     Last update check: 2025-12-01 10:44:35
+[2025-12-01T03:54:36.622+0000] {subprocess.py:93} INFO - ✓ No branch updates needed
+[2025-12-01T03:54:36.623+0000] {subprocess.py:93} INFO - 
+[2025-12-01T03:54:36.623+0000] {subprocess.py:93} INFO - [3.1] Updating DimAccount...
+[2025-12-01T03:54:36.624+0000] {subprocess.py:93} INFO -     Last update check: 2025-12-01 10:44:35
+[2025-12-01T03:54:36.625+0000] {subprocess.py:93} INFO - ✓ No account updates needed
+[2025-12-01T03:54:36.625+0000] {subprocess.py:93} INFO - 
+[2025-12-01T03:54:36.626+0000] {subprocess.py:93} INFO - [4.1] Updating FactTransaction...
+[2025-12-01T03:54:36.627+0000] {subprocess.py:93} INFO - Traceback (most recent call last):
+[2025-12-01T03:54:36.627+0000] {subprocess.py:93} INFO -   File "/home/***/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1910, in _execute_context
+[2025-12-01T03:54:36.628+0000] {subprocess.py:93} INFO -     self.dialect.do_execute(
+[2025-12-01T03:54:36.629+0000] {subprocess.py:93} INFO -   File "/home/***/.local/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 736, in do_execute
+[2025-12-01T03:54:36.629+0000] {subprocess.py:93} INFO -     cursor.execute(statement, parameters)
+[2025-12-01T03:54:36.630+0000] {subprocess.py:93} INFO - pyodbc.ProgrammingError: ('42S02', "[42S02] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Invalid object name 'DW_Yohan.core.dimtransaction'. (208) (SQLExecDirectW)")
+[2025-12-01T03:54:36.631+0000] {subprocess.py:93} INFO - 
+[2025-12-01T03:54:36.632+0000] {subprocess.py:93} INFO - The above exception was the direct cause of the following exception:
+[2025-12-01T03:54:36.632+0000] {subprocess.py:93} INFO - 
+[2025-12-01T03:54:36.633+0000] {subprocess.py:93} INFO - Traceback (most recent call last):
+[2025-12-01T03:54:36.634+0000] {subprocess.py:93} INFO -   File "/opt/***/scripts/CORE_Insert_DWH.py", line 373, in <module>
+[2025-12-01T03:54:36.634+0000] {subprocess.py:93} INFO -     run_etl()
+[2025-12-01T03:54:36.635+0000] {subprocess.py:93} INFO -   File "/opt/***/scripts/CORE_Insert_DWH.py", line 361, in run_etl
+[2025-12-01T03:54:36.636+0000] {subprocess.py:93} INFO -     total_updated += update_fact_transaction()
+[2025-12-01T03:54:36.636+0000] {subprocess.py:93} INFO -                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-12-01T03:54:36.637+0000] {subprocess.py:93} INFO -   File "/opt/***/scripts/CORE_Insert_DWH.py", line 314, in update_fact_transaction
+[2025-12-01T03:54:36.638+0000] {subprocess.py:93} INFO -     last_update = get_last_update_date('transaction')
+[2025-12-01T03:54:36.638+0000] {subprocess.py:93} INFO -                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-12-01T03:54:36.639+0000] {subprocess.py:93} INFO -   File "/opt/***/scripts/CORE_Insert_DWH.py", line 38, in get_last_update_date
+[2025-12-01T03:54:36.640+0000] {subprocess.py:93} INFO -     result = conn.execute(text(f"""
+[2025-12-01T03:54:36.641+0000] {subprocess.py:93} INFO -              ^^^^^^^^^^^^^^^^^^^^^^
+[2025-12-01T03:54:36.641+0000] {subprocess.py:93} INFO -   File "/home/***/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1385, in execute
+[2025-12-01T03:54:36.642+0000] {subprocess.py:93} INFO -     return meth(self, multiparams, params, _EMPTY_EXECUTION_OPTS)
+[2025-12-01T03:54:36.643+0000] {subprocess.py:93} INFO -            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-12-01T03:54:36.643+0000] {subprocess.py:93} INFO -   File "/home/***/.local/lib/python3.12/site-packages/sqlalchemy/sql/elements.py", line 334, in _execute_on_connection
+[2025-12-01T03:54:36.644+0000] {subprocess.py:93} INFO -     return connection._execute_clauseelement(
+[2025-12-01T03:54:36.645+0000] {subprocess.py:93} INFO -            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-12-01T03:54:36.645+0000] {subprocess.py:93} INFO -   File "/home/***/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1577, in _execute_clauseelement
+[2025-12-01T03:54:36.646+0000] {subprocess.py:93} INFO -     ret = self._execute_context(
+[2025-12-01T03:54:36.647+0000] {subprocess.py:93} INFO -           ^^^^^^^^^^^^^^^^^^^^^^
+[2025-12-01T03:54:36.653+0000] {subprocess.py:93} INFO -   File "/home/***/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1953, in _execute_context
+[2025-12-01T03:54:36.655+0000] {subprocess.py:93} INFO -     self._handle_dbapi_exception(
+[2025-12-01T03:54:36.655+0000] {subprocess.py:93} INFO -   File "/home/***/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2134, in _handle_dbapi_exception
+[2025-12-01T03:54:36.656+0000] {subprocess.py:93} INFO -     util.raise_(
+[2025-12-01T03:54:36.657+0000] {subprocess.py:93} INFO -   File "/home/***/.local/lib/python3.12/site-packages/sqlalchemy/util/compat.py", line 211, in raise_
+[2025-12-01T03:54:36.658+0000] {subprocess.py:93} INFO -     raise exception
+[2025-12-01T03:54:36.658+0000] {subprocess.py:93} INFO -   File "/home/***/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1910, in _execute_context
+[2025-12-01T03:54:36.659+0000] {subprocess.py:93} INFO -     self.dialect.do_execute(
+[2025-12-01T03:54:36.660+0000] {subprocess.py:93} INFO -   File "/home/***/.local/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 736, in do_execute
+[2025-12-01T03:54:36.661+0000] {subprocess.py:93} INFO -     cursor.execute(statement, parameters)
+[2025-12-01T03:54:36.661+0000] {subprocess.py:93} INFO - sqlalchemy.exc.ProgrammingError: (pyodbc.ProgrammingError) ('42S02', "[42S02] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Invalid object name 'DW_Yohan.core.dimtransaction'. (208) (SQLExecDirectW)")
+[2025-12-01T03:54:36.662+0000] {subprocess.py:93} INFO - [SQL:
+[2025-12-01T03:54:36.663+0000] {subprocess.py:93} INFO -             SELECT MAX(dtmupd)
+[2025-12-01T03:54:36.663+0000] {subprocess.py:93} INFO -             FROM DW_Yohan.core.dimtransaction
+[2025-12-01T03:54:36.664+0000] {subprocess.py:93} INFO -         ]
+[2025-12-01T03:54:36.665+0000] {subprocess.py:93} INFO - (Background on this error at: https://sqlalche.me/e/14/f405)
+[2025-12-01T03:54:36.802+0000] {subprocess.py:97} INFO - Command exited with return code 1
+[2025-12-01T03:54:36.818+0000] {taskinstance.py:3310} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 767, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 733, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 406, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/bash.py", line 249, in execute
+    raise AirflowException(
+airflow.exceptions.AirflowException: Bash command failed. The command returned a non-zero exit code 1.
+[2025-12-01T03:54:36.825+0000] {taskinstance.py:1225} INFO - Marking task as FAILED. dag_id=ETL_DWH_Daily, task_id=run_insert_silver, run_id=manual__2025-12-01T03:49:17.964534+00:00, execution_date=20251201T034917, start_date=20251201T035433, end_date=20251201T035436
+[2025-12-01T03:54:36.846+0000] {taskinstance.py:340} INFO - ::group::Post task execution logs
+[2025-12-01T03:54:36.847+0000] {standard_task_runner.py:124} ERROR - Failed to execute job 740 for task run_insert_silver (Bash command failed. The command returned a non-zero exit code 1.; 3013)
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py", line 117, in _start_by_fork
+    ret = args.func(args, dag=self.dag)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/cli_config.py", line 49, in command
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/cli.py", line 115, in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 483, in task_run
+    task_return_code = _run_task_by_selected_method(args, _dag, ti)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 256, in _run_task_by_selected_method
+    return _run_raw_task(args, ti)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 341, in _run_raw_task
+    return ti._run_raw_task(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/session.py", line 97, in wrapper
+    return func(*args, session=session, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3004, in _run_raw_task
+    return _run_raw_task(
+           ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 273, in _run_raw_task
+    TaskInstance._execute_task_with_callbacks(
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3158, in _execute_task_with_callbacks
+    result = self._execute_task(context, task_orig)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3182, in _execute_task
+    return _execute_task(self, context, task_orig)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 767, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 733, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 406, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/bash.py", line 249, in execute
+    raise AirflowException(
+airflow.exceptions.AirflowException: Bash command failed. The command returned a non-zero exit code 1.
+[2025-12-01T03:54:36.895+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 1
+[2025-12-01T03:54:36.927+0000] {taskinstance.py:3900} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-12-01T03:54:36.933+0000] {local_task_job_runner.py:245} INFO - ::endgroup::
