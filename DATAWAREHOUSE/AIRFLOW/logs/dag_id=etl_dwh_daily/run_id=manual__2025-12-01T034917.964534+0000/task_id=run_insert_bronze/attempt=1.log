@@ -1,67 +1,0 @@
-[2025-12-01T03:49:26.827+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
-[2025-12-01T03:49:26.848+0000] {taskinstance.py:2612} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: ETL_DWH_Daily.run_insert_bronze manual__2025-12-01T03:49:17.964534+00:00 [queued]>
-[2025-12-01T03:49:26.857+0000] {taskinstance.py:2612} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: ETL_DWH_Daily.run_insert_bronze manual__2025-12-01T03:49:17.964534+00:00 [queued]>
-[2025-12-01T03:49:26.858+0000] {taskinstance.py:2865} INFO - Starting attempt 1 of 2
-[2025-12-01T03:49:26.872+0000] {taskinstance.py:2888} INFO - Executing <Task(BashOperator): run_insert_bronze> on 2025-12-01 03:49:17.964534+00:00
-[2025-12-01T03:49:26.884+0000] {logging_mixin.py:190} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70 DeprecationWarning: This process (pid=2494) is multi-threaded, use of fork() may lead to deadlocks in the child.
-[2025-12-01T03:49:26.886+0000] {standard_task_runner.py:72} INFO - Started process 2495 to run task
-[2025-12-01T03:49:26.884+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'ETL_DWH_Daily', 'run_insert_bronze', 'manual__2025-12-01T03:49:17.964534+00:00', '--job-id', '721', '--raw', '--subdir', 'DAGS_FOLDER/etl_insert_DWH_Daily_dag.py', '--cfg-path', '/tmp/tmpyq77jbbr']
-[2025-12-01T03:49:26.886+0000] {standard_task_runner.py:105} INFO - Job 721: Subtask run_insert_bronze
-[2025-12-01T03:49:26.954+0000] {task_command.py:467} INFO - Running <TaskInstance: ETL_DWH_Daily.run_insert_bronze manual__2025-12-01T03:49:17.964534+00:00 [running]> on host bdb661d75ef8
-[2025-12-01T03:49:27.075+0000] {taskinstance.py:3131} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='yohan' AIRFLOW_CTX_DAG_ID='ETL_DWH_Daily' AIRFLOW_CTX_TASK_ID='run_insert_bronze' AIRFLOW_CTX_EXECUTION_DATE='2025-12-01T03:49:17.964534+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-12-01T03:49:17.964534+00:00'
-[2025-12-01T03:49:27.076+0000] {taskinstance.py:731} INFO - ::endgroup::
-[2025-12-01T03:49:27.096+0000] {subprocess.py:63} INFO - Tmp dir root location: /tmp
-[2025-12-01T03:49:27.098+0000] {subprocess.py:75} INFO - Running command: ['/usr/bin/bash', '-c', 'python /opt/***/scripts/STG_Insert_DWH.py']
-[2025-12-01T03:49:27.117+0000] {subprocess.py:86} INFO - Output:
-[2025-12-01T03:49:28.608+0000] {subprocess.py:93} INFO - ['/opt/***/scripts', '/usr/local/lib/python312.zip', '/usr/local/lib/python3.12', '/usr/local/lib/python3.12/lib-dynload', '/home/***/.local/lib/python3.12/site-packages']
-[2025-12-01T03:49:28.609+0000] {subprocess.py:93} INFO - Start export - 2025-12-01 03:49:28.450738
-[2025-12-01T03:49:28.609+0000] {subprocess.py:93} INFO - 
-[2025-12-01T03:49:28.610+0000] {subprocess.py:93} INFO -  CUSTOMER – Last dtmload: 2025-12-01 10:30:11
-[2025-12-01T03:49:28.616+0000] {subprocess.py:93} INFO - Exporting customer: 0it [00:00, ?it/s]Exporting customer: 1it [00:00, 134.62it/s]
-[2025-12-01T03:49:28.717+0000] {subprocess.py:93} INFO - Deleting updated rows from staging.customer_raw...
-[2025-12-01T03:49:28.717+0000] {subprocess.py:93} INFO - Insert data_export/temp_parquet/customer_part_1.parquet...
-[2025-12-01T03:49:28.718+0000] {subprocess.py:93} INFO - 
-[2025-12-01T03:49:28.718+0000] {subprocess.py:93} INFO -  CITY – Last dtmload: 2025-11-30 21:20:09
-[2025-12-01T03:49:28.719+0000] {subprocess.py:93} INFO - Exporting city: 0it [00:00, ?it/s]Exporting city: 1it [00:00, 371.01it/s]
-[2025-12-01T03:49:28.809+0000] {subprocess.py:93} INFO - Deleting updated rows from staging.city_raw...
-[2025-12-01T03:49:28.810+0000] {subprocess.py:93} INFO - Insert data_export/temp_parquet/city_part_1.parquet...
-[2025-12-01T03:49:28.810+0000] {subprocess.py:93} INFO - 
-[2025-12-01T03:49:28.811+0000] {subprocess.py:93} INFO -  ACCOUNT – Last dtmload: 2025-11-30 21:20:09
-[2025-12-01T03:49:28.812+0000] {subprocess.py:93} INFO - Exporting account: 0it [00:00, ?it/s]Exporting account: 1it [00:00, 277.53it/s]
-[2025-12-01T03:49:28.908+0000] {subprocess.py:93} INFO - Deleting updated rows from staging.account_raw...
-[2025-12-01T03:49:28.909+0000] {subprocess.py:93} INFO - Insert data_export/temp_parquet/account_part_1.parquet...
-[2025-12-01T03:49:28.909+0000] {subprocess.py:93} INFO - 
-[2025-12-01T03:49:28.910+0000] {subprocess.py:93} INFO -  BRANCH – Last dtmload: 2025-11-30 21:20:09
-[2025-12-01T03:49:28.911+0000] {subprocess.py:93} INFO - Exporting branch: 0it [00:00, ?it/s]Exporting branch: 1it [00:00, 338.00it/s]
-[2025-12-01T03:49:29.002+0000] {subprocess.py:93} INFO - Deleting updated rows from staging.branch_raw...
-[2025-12-01T03:49:29.003+0000] {subprocess.py:93} INFO - Insert data_export/temp_parquet/branch_part_1.parquet...
-[2025-12-01T03:49:29.003+0000] {subprocess.py:93} INFO - 
-[2025-12-01T03:49:29.004+0000] {subprocess.py:93} INFO -  STATE – Last dtmload: 2025-11-30 21:20:10
-[2025-12-01T03:49:29.005+0000] {subprocess.py:93} INFO - Exporting state: 0it [00:00, ?it/s]Exporting state: 1it [00:00, 363.96it/s]
-[2025-12-01T03:49:29.095+0000] {subprocess.py:93} INFO - Deleting updated rows from staging.state_raw...
-[2025-12-01T03:49:29.096+0000] {subprocess.py:93} INFO - Insert data_export/temp_parquet/state_part_1.parquet...
-[2025-12-01T03:49:29.097+0000] {subprocess.py:93} INFO - 
-[2025-12-01T03:49:29.097+0000] {subprocess.py:93} INFO -  TRANSACTION – Last dtmload: 2025-12-01 03:45:11
-[2025-12-01T03:49:29.098+0000] {subprocess.py:93} INFO - Exporting transaction: 0it [00:00, ?it/s]Exporting transaction: 1it [00:00, 346.44it/s]
-[2025-12-01T03:49:29.435+0000] {subprocess.py:93} INFO - Deleting updated rows from staging.transaction_raw...
-[2025-12-01T03:49:29.436+0000] {subprocess.py:93} INFO - Insert data_export/temp_parquet/transaction_part_1.parquet...
-[2025-12-01T03:49:29.436+0000] {subprocess.py:93} INFO - ['/opt/***/Data_Transaction/transaction.csv']
-[2025-12-01T03:49:29.437+0000] {subprocess.py:93} INFO - ['/opt/***/Data_Transaction/transaction.csv', '/opt/***/Data_Transaction/transaction.xlsx']
-[2025-12-01T03:49:29.438+0000] {subprocess.py:93} INFO - ['/opt/***/Data_Transaction/transaction.csv', '/opt/***/Data_Transaction/transaction.xlsx']
-[2025-12-01T03:49:29.438+0000] {subprocess.py:93} INFO - 
-[2025-12-01T03:49:29.439+0000] {subprocess.py:93} INFO - Loading 2 transaction file(s) ...
-[2025-12-01T03:49:29.439+0000] {subprocess.py:93} INFO - Loading file: /opt/***/Data_Transaction/transaction.csv
-[2025-12-01T03:49:29.440+0000] {subprocess.py:93} INFO - ✓ Inserted 12 rows from transaction.csv
-[2025-12-01T03:49:29.441+0000] {subprocess.py:93} INFO - Loading file: /opt/***/Data_Transaction/transaction.xlsx
-[2025-12-01T03:49:29.441+0000] {subprocess.py:93} INFO - ✓ Inserted 7 rows from transaction.xlsx
-[2025-12-01T03:49:29.442+0000] {subprocess.py:93} INFO - 
-[2025-12-01T03:49:29.442+0000] {subprocess.py:93} INFO - Transaction loading completed.
-[2025-12-01T03:49:29.442+0000] {subprocess.py:93} INFO - 
-[2025-12-01T03:49:29.443+0000] {subprocess.py:93} INFO -  Cleaning temp parquet...
-[2025-12-01T03:49:29.443+0000] {subprocess.py:93} INFO -  Finish - 2025-12-01 03:49:29.434980
-[2025-12-01T03:49:29.602+0000] {subprocess.py:97} INFO - Command exited with return code 0
-[2025-12-01T03:49:29.646+0000] {taskinstance.py:340} INFO - ::group::Post task execution logs
-[2025-12-01T03:49:29.647+0000] {taskinstance.py:352} INFO - Marking task as SUCCESS. dag_id=ETL_DWH_Daily, task_id=run_insert_bronze, run_id=manual__2025-12-01T03:49:17.964534+00:00, execution_date=20251201T034917, start_date=20251201T034926, end_date=20251201T034929
-[2025-12-01T03:49:29.680+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
-[2025-12-01T03:49:29.712+0000] {taskinstance.py:3900} INFO - 1 downstream tasks scheduled from follow-on schedule check
-[2025-12-01T03:49:29.714+0000] {local_task_job_runner.py:245} INFO - ::endgroup::
