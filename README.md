@@ -1,4 +1,4 @@
-# 📦 Data Warehouse Final Task – Yohan
+# 📦 Banking Data Warehouse & Automated Pipeline – Yohan
 
 This project is the final task to build an end-to-end Data Warehouse that includes:
 - Processing raw source data (CSV/XLSX)
