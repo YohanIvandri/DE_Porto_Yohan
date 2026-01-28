@@ -1,0 +1,20 @@
+# Data
+bronze/
+
+# Python
+__pycache__/
+*.pyc
+
+# Virtual Environments
+gcp_venv/
+venv/
+
+# Environment variables
+.env
+
+# Logs
+gcp_logs/
+*.log
+
+#folder lain
+global_banks_etl/
