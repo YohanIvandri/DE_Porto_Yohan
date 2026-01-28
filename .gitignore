@@ -18,4 +18,4 @@ gcp_logs/
 
 #folder lain
 global_banks_etl/
-banking_dwh_pipeline
+banking_dwh_pipeline/
