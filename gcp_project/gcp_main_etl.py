@@ -11,29 +11,20 @@ def log_progress(message):
         log.write(f"{timestamp} : {message}\n")
 
 def run_ingestion():
-    """Bronze layer ingestion"""
     log_progress("Ingestion Start")
     
     tickers = ['NVDA', 'GOOGL', 'AAPL']
+    bucket_name = 'your-bucket-name'  # ← GANTI INI!
     
     for t in tickers:
-        save_to_bronze(t)
+        save_to_bronze(t, bucket_name)  # ← Passing bucket_name
     
     log_progress("Ingestion End")
 
 def main():
-    log_progress("Preliminaries complete. Initiating ETL process")
-    
-    # Bronze layer
+    log_progress("ETL Pipeline Start")
     run_ingestion()
-    
-    # TODO: Silver layer (nanti)
-    # run_transformation()
-    
-    # TODO: Gold layer (nanti)
-    # run_aggregation()
-    
-    log_progress("Process Complete")
+    log_progress("ETL Pipeline Complete")
 
 if __name__ == "__main__":
     main()

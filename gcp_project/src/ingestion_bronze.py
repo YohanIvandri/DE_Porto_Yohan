@@ -1,42 +1,45 @@
-import yfinance as yf
 import os
+import yfinance as yf
 from datetime import datetime
-# from pathlib import path
+from google.cloud import storage
+import io
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-def save_to_bronze(company):
-    print (f"Ingesting {company} file....")
+def save_to_bronze(company, bucket_name='your-bucket-name'):
+    print(f"Ingesting {company} file....")
 
     try:
-
-        #buat folder baru
-        bronze_path = os.path.join(BASE_DIR, "bronze", company)
-        os.makedirs(bronze_path, exist_ok = True)
-
-        #ambil data dari yf
+        # Ambil data dari yf
         ticker = yf.Ticker(company)
-        history = ticker.history(period = "5d")
+        history = ticker.history(period="5d")
         
         if history.empty:
             raise ValueError("No data returned from yfinance")
             
-        #tambah kolom nama
-        history.insert(0,'Company',company)
+        # Tambah kolom nama
+        history.insert(0, 'Company', company)
         
-
-        #buat timestamp
+        # Buat timestamp
         timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-        filename = os.path.join(bronze_path,f'{company}_{timestamp}.parquet')
         
-        #save file di directory
-        history.to_parquet(filename)
+        # Path di GCS (mirip struktur folder lo)
+        blob_path = f'bronze/{company}/{company}_{timestamp}.parquet'
         
-        print(f"Data {company} berhasil tersimpan di {filename}")
+        # Save ke BytesIO (in-memory buffer)
+        buffer = io.BytesIO()
+        history.to_parquet(buffer)
+        buffer.seek(0)  # Reset pointer ke awal
+        
+        # Upload ke GCS
+        storage_client = storage.Client()
+        bucket = storage_client.bucket(bucket_name)
+        blob = bucket.blob(blob_path)
+        blob.upload_from_file(buffer, content_type='application/octet-stream')
+        
+        gcs_uri = f"gs://{bucket_name}/{blob_path}"
+        print(f"✅ Data {company} berhasil tersimpan di {gcs_uri}")
         
         return history
+        
     except Exception as e:
-            print(f" Error ingesting {company}: {e}")
-            return None
-    
-    
+        print(f"❌ Error ingesting {company}: {e}")
+        return None
