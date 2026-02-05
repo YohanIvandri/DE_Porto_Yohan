@@ -4,7 +4,8 @@ from datetime import datetime
 from google.cloud import storage
 import io
 
-def save_to_bronze(company, bucket_name='your-bucket-name'):
+
+def save_to_bronze(company, bucket_name='stock-etl-bronze'):
     print(f"Ingesting {company} file....")
 
     try:
