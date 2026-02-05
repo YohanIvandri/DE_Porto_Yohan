@@ -14,7 +14,7 @@ def run_ingestion():
     log_progress("Ingestion Start")
     
     tickers = ['NVDA', 'GOOGL', 'AAPL']
-    bucket_name = 'your-bucket-name'  # ← GANTI INI!
+    bucket_name = 'stock-etl-bronze'  # ← GANTI INI!
     
     for t in tickers:
         save_to_bronze(t, bucket_name)  # ← Passing bucket_name
