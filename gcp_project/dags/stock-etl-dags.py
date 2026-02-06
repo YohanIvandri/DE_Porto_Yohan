@@ -1,7 +1,13 @@
 from airflow import DAG
-from airflow.providers.standard.operators.bash import BashOperator
+from airflow.operators.python import PythonOperator
 from datetime import timedelta
 import pendulum
+import sys
+
+# Set path SEBELUM import
+sys.path.insert(0, '/opt/airflow/gcp_project')
+
+from src.ingestion_bronze import save_to_bronze
 
 default_args = {
     'owner': 'yohan',
@@ -9,6 +15,14 @@ default_args = {
     'retries': 1,
     'retry_delay': timedelta(minutes=5),
 }
+
+def run_bronze_ingestion():
+    """Function untuk run ETL bronze"""
+    tickers = ['NVDA', 'GOOGL', 'AAPL']
+    bucket_name = 'stock-etl-bronze'
+    
+    for ticker in tickers:
+        save_to_bronze(ticker, bucket_name)
 
 with DAG(
     dag_id='etl_stock_daily',
@@ -20,7 +34,7 @@ with DAG(
     tags=['etl', 'bronze'],
 ) as dag:
 
-    run_etl_bronze = BashOperator(
+    bronze_task = PythonOperator(
         task_id='run_insert_bronze',
-        bash_command='python /home/airflow/gcs/dags/gcp_main_etl.py'
+        python_callable=run_bronze_ingestion
     )
