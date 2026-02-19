@@ -18,7 +18,7 @@ def save_to_bronze(company, bucket_name='stock-etl-bronze'):
             
         # Tambah kolom nama
         history.insert(0, 'Company', company)
-        
+
         # Buat timestamp
         timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
         
@@ -43,4 +43,4 @@ def save_to_bronze(company, bucket_name='stock-etl-bronze'):
         
     except Exception as e:
         print(f"❌ Error ingesting {company}: {e}")
-        return None
+        return None 

@@ -21,6 +21,8 @@ def run_ingestion():
     
     log_progress("Ingestion End")
 
+
+
 def main():
     log_progress("ETL Pipeline Start")
     run_ingestion()
