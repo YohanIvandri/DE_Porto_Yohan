@@ -21,6 +21,6 @@ with DAG(
 ) as dag:
 
     run_full_etl = BashOperator(
-        task_id='run_full_pipeline',
-        bash_command='cd /opt/airflow/gcp_project && python3 gcp_main_etl.py'
+        task_id="run_pipeline",
+        bash_command="python3 /opt/airflow/gcp_project/gcp_main_etl.py"
     )
