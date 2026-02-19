@@ -1,5 +1,6 @@
 from datetime import datetime
 from src.ingestion_bronze import save_to_bronze
+from src.transform_silver import transform_bronze_to_silver
 import os
 
 LOG_PATH = "./gcp_logs/gcp_etl_log.txt"
@@ -42,6 +43,6 @@ def main():
     run_silver_transformation()
     
     log_progress("ETL Pipeline Complete")
-    
+
 if __name__ == "__main__":
     main()
