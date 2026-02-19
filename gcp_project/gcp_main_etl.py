@@ -10,7 +10,7 @@ def log_progress(message):
     with open(LOG_PATH, "a") as log:
         log.write(f"{timestamp} : {message}\n")
 
-def run_ingestion():
+def run_bronze_ingestion():
     log_progress("Ingestion Start")
     
     tickers = ['NVDA', 'GOOGL', 'AAPL']
@@ -21,12 +21,27 @@ def run_ingestion():
     
     log_progress("Ingestion End")
 
+def run_silver_transformation():
+    """Silver layer transformation"""
+    log_progress("Silver Transformation Start")
+    
+    bucket_name = 'stock-etl-bronze'
+    project_id = os.getenv('GCP_PROJECT_ID')  # Auto-detect dari env
+    
+    result = transform_bronze_to_silver(bucket_name, project_id)
+    log_progress(f"Silver Transformation End: {result}")
 
 
 def main():
     log_progress("ETL Pipeline Start")
-    run_ingestion()
+    
+    # Bronze layer
+    run_bronze_ingestion()
+    
+    # Silver layer
+    run_silver_transformation()
+    
     log_progress("ETL Pipeline Complete")
-
+    
 if __name__ == "__main__":
     main()
