@@ -31,6 +31,32 @@ def read_parquet_from_gcs(bucket_name, blob_path):
     except Exception as e:
         print(f"Error reading {blob_path}: {e}")
         return None
+    
+def get_existing_dates(bq_client, project_id, dataset_id, table_id):
+    """
+    Get existing Company + Date combinations from BigQuery
+    
+    Returns:
+        set of tuples: {(company, date), ...}
+    """
+    try:
+        query = f"""
+        SELECT DISTINCT company, DATE(date) as date
+        FROM `{project_id}.{dataset_id}.{table_id}`
+        """
+        
+        result = bq_client.query(query).to_dataframe()
+        
+        # Convert to set of tuples for fast lookup
+        existing = set(zip(result['company'], result['date']))
+        
+        print(f"📊 Found {len(existing)} existing records in BigQuery")
+        return existing
+        
+    except Exception as e:
+        # Table belum ada atau kosong
+        print(f"⚠️  No existing data found (table might be empty or not exist): {e}")
+        return set()    
 
 def clean_data(df):
     """
@@ -62,46 +88,63 @@ def clean_data(df):
 
 def load_to_bigquery(df, project_id, dataset_id, table_id, write_disposition='APPEND'):
     """
-    Load DataFrame to BigQuery
-    
-    Args:
-        df: pandas DataFrame
-        project_id: GCP project ID (None for auto-detect)
-        dataset_id: BigQuery dataset ID
-        table_id: BigQuery table ID
-        write_disposition: 'APPEND' or 'TRUNCATE'
+    Load DataFrame to BigQuery (incremental - skip existing data)
     """
     try:
         # Initialize BigQuery client
         if project_id:
             bq_client = bigquery.Client(project=project_id)
         else:
-            bq_client = bigquery.Client()  # Auto-detect project
+            bq_client = bigquery.Client()
         
-        # Table reference
         table_ref = f"{bq_client.project}.{dataset_id}.{table_id}"
         
-        # Configure load job
-        if write_disposition == 'TRUNCATE':
-            write_disp = bigquery.WriteDisposition.WRITE_TRUNCATE
-        else:
-            write_disp = bigquery.WriteDisposition.WRITE_APPEND
+        # Get existing data
+        existing_data = get_existing_dates(bq_client, bq_client.project, dataset_id, table_id)
         
+        if existing_data:
+            # Filter out existing records
+            print(f"🔍 Filtering out existing records...")
+            
+            # Convert date column to date only (remove time)
+            df['date_only'] = pd.to_datetime(df['date']).dt.date
+            
+            # Create mask for new records
+            mask = ~df.apply(lambda row: (row['company'], row['date_only']) in existing_data, axis=1)
+            
+            # Keep only new records
+            df_new = df[mask].drop(columns=['date_only'])
+            
+            rows_before = len(df)
+            rows_after = len(df_new)
+            rows_skipped = rows_before - rows_after
+            
+            print(f"📊 Total rows: {rows_before}")
+            print(f"✅ New rows: {rows_after}")
+            print(f"⏭️  Skipped (already exists): {rows_skipped}")
+            
+            if df_new.empty:
+                print("ℹ️  No new data to load!")
+                return True
+            
+            df = df_new
+        
+        # Configure load job
         job_config = bigquery.LoadJobConfig(
-            write_disposition=write_disp,
-            autodetect=True,  # Auto-detect schema
+            write_disposition=bigquery.WriteDisposition.WRITE_APPEND,
+            autodetect=True,
         )
         
         # Load to BigQuery
-        print(f" Loading to BigQuery: {table_ref}")
+        print(f"📤 Loading {len(df)} new rows to BigQuery: {table_ref}")
         job = bq_client.load_table_from_dataframe(df, table_ref, job_config=job_config)
-        job.result()  # Wait for completion
+        job.result()
         
-        print(f" Loaded {len(df)} rows to {table_ref}")
+        print(f"✅ Successfully loaded {len(df)} rows to {table_ref}")
         return True
         
     except Exception as e:
-        print(f" Error loading to BigQuery: {e}")
+        print(f"❌ Error loading to BigQuery: {e}")
         return False
 
 def transform_bronze_to_silver(bucket_name, project_id=None):
