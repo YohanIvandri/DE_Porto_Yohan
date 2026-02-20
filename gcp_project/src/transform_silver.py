@@ -19,11 +19,11 @@ def read_parquet_from_gcs(bucket_name, blob_path):
         bucket = storage_client.bucket(bucket_name)
         blob = bucket.blob(blob_path)
         
-        # Download parquet as bytes
         parquet_bytes = blob.download_as_bytes()
-        
-        # Read parquet from bytes
         df = pd.read_parquet(io.BytesIO(parquet_bytes))
+        
+        # Reset index supaya Date jadi kolom
+        df = df.reset_index()
         
         print(f"Read {len(df)} rows from {blob_path}")
         return df
@@ -93,15 +93,15 @@ def load_to_bigquery(df, project_id, dataset_id, table_id, write_disposition='AP
         )
         
         # Load to BigQuery
-        print(f"📤 Loading to BigQuery: {table_ref}")
+        print(f" Loading to BigQuery: {table_ref}")
         job = bq_client.load_table_from_dataframe(df, table_ref, job_config=job_config)
         job.result()  # Wait for completion
         
-        print(f"✅ Loaded {len(df)} rows to {table_ref}")
+        print(f" Loaded {len(df)} rows to {table_ref}")
         return True
         
     except Exception as e:
-        print(f"❌ Error loading to BigQuery: {e}")
+        print(f" Error loading to BigQuery: {e}")
         return False
 
 def transform_bronze_to_silver(bucket_name, project_id=None):
@@ -122,23 +122,23 @@ def transform_bronze_to_silver(bucket_name, project_id=None):
     """
     try:
         print(f"\n{'='*60}")
-        print("🔄 SILVER LAYER TRANSFORMATION")
+        print(" SILVER LAYER TRANSFORMATION")
         print(f"{'='*60}\n")
         
         storage_client = storage.Client()
         bucket = storage_client.bucket(bucket_name)
         
         # List all parquet files in bronze/
-        print(f"📂 Scanning bronze layer: gs://{bucket_name}/bronze/")
+        print(f" Scanning bronze layer: gs://{bucket_name}/bronze/")
         blobs = list(bucket.list_blobs(prefix='bronze/'))
         
         # Filter only parquet files
         parquet_blobs = [blob for blob in blobs if blob.name.endswith('.parquet')]
         
         if not parquet_blobs:
-            return "⚠️  No parquet files found in bronze layer"
+            return "  No parquet files found in bronze layer"
         
-        print(f"📦 Found {len(parquet_blobs)} parquet files\n")
+        print(f" Found {len(parquet_blobs)} parquet files\n")
         
         # Read all parquet files
         all_data = []
@@ -148,7 +148,7 @@ def transform_bronze_to_silver(bucket_name, project_id=None):
                 all_data.append(df)
         
         if not all_data:
-            return "❌ Failed to read any parquet files"
+            return " Failed to read any parquet files"
         
         # Combine all data
         print(f"\n🔗 Combining {len(all_data)} dataframes...")
@@ -160,7 +160,7 @@ def transform_bronze_to_silver(bucket_name, project_id=None):
         cleaned_df = clean_data(combined_df)
         
         if cleaned_df.empty:
-            return "⚠️  No data left after cleaning"
+            return "  No data left after cleaning"
         
         # Load to BigQuery
         print("\n📊 Loading to BigQuery...")
@@ -173,9 +173,9 @@ def transform_bronze_to_silver(bucket_name, project_id=None):
         )
         
         if success:
-            result = f"✅ Success! Loaded {len(cleaned_df)} rows to BigQuery"
+            result = f" Success! Loaded {len(cleaned_df)} rows to BigQuery"
         else:
-            result = "❌ Failed to load to BigQuery"
+            result = " Failed to load to BigQuery"
         
         print(f"\n{'='*60}")
         print(result)
@@ -184,7 +184,7 @@ def transform_bronze_to_silver(bucket_name, project_id=None):
         return result
         
     except Exception as e:
-        error_msg = f"❌ Error in silver transformation: {e}"
+        error_msg = f" Error in silver transformation: {e}"
         print(error_msg)
         return error_msg
 
